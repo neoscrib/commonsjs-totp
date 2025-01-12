@@ -28,4 +28,5 @@ jobs:
         cache: 'npm'
     - run: npm add --global yarn
     - run: yarn
+    - run: yarn playwright install 
     - run: yarn test
