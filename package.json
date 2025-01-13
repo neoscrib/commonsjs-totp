@@ -1,14 +1,21 @@
 {
-  "name": "@neojs/totp",
+  "name": "@commonsjs/totp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "type": "module",
-  "types": "index.d.ts",
-  "directories": {
-    "test": "test"
+  "types": "./index.d.ts",
+  "files": ["index.d.ts", "dist"],
+  "exports": {
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.js"
   },
   "scripts": {
-    "test": "vitest run --coverage"
+    "test": "vitest run --coverage",
+    "clean": "rm -rf ./dist/*",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build": "yarn clean && yarn build:esm && yarn build:cjs"
   },
   "author": "Tanner Jepsen <neoscrib@gmail.com>",
   "license": "ISC",

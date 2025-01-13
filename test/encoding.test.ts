@@ -1,4 +1,4 @@
-import {base32ToBinary, binaryToHex} from "../src/encoding";
+import {base32decode, binaryToHex} from "../src/encoding";
 
 describe("encoding", () => {
   describe("binaryToHex", () => {
@@ -10,11 +10,33 @@ describe("encoding", () => {
     });
   });
 
-  describe("base32ToBinary", () => {
+  describe("base32decode", () => {
     it("decodes a base-32 string to binary", () => {
-      const result = base32ToBinary("JBSWY3DPEHPK3PXP");
+      const result = base32decode("JBSWY3DPEHPK3PXP");
       const resultHex = binaryToHex(result);
       expect(resultHex).toEqual("48656c6c6f21deadbeef");
     });
+
+    it("throws with invalid base-32 characters", () => {
+      expect(() => base32decode("JBSWY3DPE1PK3PXP")).toThrow("Invalid base-32 character '1'");
+    });
+
+    for (const [input, expected] of [
+      ["", ""],
+      ["MY======", "f"],
+      ["MZXQ====", "fo"],
+      ["MZXW6===", "foo"],
+      ["MZXW6YQ=", "foob"],
+      ["MZXW6YTB", "fooba"],
+      ["MZXW6YTBOI======", "foobar"]
+    ]) {
+      /**
+       * @see https://datatracker.ietf.org/doc/html/rfc4648#section-10
+       */
+      it(`decodes rfc-4648 test vectors ${input || "(empty)"}`, () => {
+        const actual = new TextDecoder().decode(base32decode(input));
+        expect(actual).toEqual(expected);
+      });
+    }
   });
 });
