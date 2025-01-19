@@ -13,7 +13,7 @@ console.log(result);
 
 Example output of the above:
 
-```json
+```js
 {
   expires: 1736638440,
   token: "482223",
@@ -52,7 +52,7 @@ console.log(result);
 
 Example output of the above:
 
-```json
+```js
 {
   expires: 1736638440,
   token: "482223",
