@@ -1,15 +1,26 @@
 {
   "name": "@bytekit/totp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "type": "module",
   "types": "./index.d.ts",
-  "files": ["index.d.ts", "dist"],
+  "files": [
+    "index.d.ts",
+    "dist"
+  ],
   "exports": {
     "import": "./dist/esm/index.js",
     "require": "./dist/cjs/index.js"
   },
+  "keywords": [
+    "otp",
+    "totp",
+    "hotp",
+    "authenticator",
+    "google authenticator",
+    "2fa"
+  ],
   "scripts": {
     "test": "vitest run --coverage",
     "clean": "rm -rf ./dist/*",
