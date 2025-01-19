@@ -1,11 +1,11 @@
-# @commonsjs/totp
+# @bytekit/totp
 
 A library to generate TOTP and HOTP tokens.
 
 ## Usage
 
 ```ts
-import {totp} from "@commonsjs/totp";
+import {totp} from "@bytekit/totp";
 
 const result = await totp("JBSWY3DPEHPK3PXP");
 console.log(result);
@@ -44,7 +44,7 @@ Returns an [ITotpToken](#itotptoken) object containing the token, expiration, ne
 #### Examples
 
 ```ts
-import {totp} from "@commonsjs/totp";
+import {totp} from "@bytekit/totp";
 
 const result = await totp("JBSWY3DPEHPK3PXP");
 console.log(result);

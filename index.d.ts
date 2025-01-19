@@ -35,7 +35,7 @@ declare interface IOtpAuth extends Exclude<ITotpOptions, "timestamp"> {
   counter?: number;
 }
 
-declare module "@commonsjs/totp" {
+declare module "@bytekit/totp" {
   /**
    * Generates a time-based one-time password
    * @param options The TOTP options
