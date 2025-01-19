@@ -4,3 +4,4 @@ coverage
 .idea
 node_modules
 dist
+tsconfig.tsbuildinfo

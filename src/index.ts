@@ -18,10 +18,11 @@ export function parseOtpUri(uri: string): IOtpAuth {
 
   let account: string;
   let issuer: string | undefined;
-  if (parsed.pathname.includes(":")) {
-    ([issuer, account] = decodeURIComponent(parsed.pathname).slice(1).split(":"));
+  const path = decodeURIComponent(parsed.pathname).replace(/^\//, "");
+  if (path.includes(":")) {
+    ([issuer, account] = path.split(":"));
   } else {
-    account = parsed.pathname;
+    account = path;
   }
 
   if (!issuer && parsed.searchParams.has("issuer")) {
@@ -30,14 +31,17 @@ export function parseOtpUri(uri: string): IOtpAuth {
 
   const counter = type === "hotp" ? parseInt(parsed.searchParams.get("counter")!) : undefined;
 
-  const result = {
+  const result: IOtpAuth = {
     account,
     type,
     key: parsed.searchParams.get("secret")!,
     algorithm: parsed.searchParams.get("algorithm") ?? "SHA1",
-    digits: parseInt(parsed.searchParams.get("digits") ?? "6"),
-    interval: parseInt(parsed.searchParams.get("period") ?? "30")
+    digits: parseInt(parsed.searchParams.get("digits") ?? "6")
   };
+
+  if (type === "totp") {
+    Object.assign(result, {period: parseInt(parsed.searchParams.get("period") ?? "30")})
+  }
 
   if (issuer) {
     Object.assign(result, {issuer});

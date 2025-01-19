@@ -14,11 +14,18 @@ declare interface ITotpOptions {
   /**
    * The time interval. Default is 30 seconds.
    */
-  interval?: number;
+  period?: number;
   /**
-   * The timestamp to use. Default is now.
+   * The unix epoch timestamp to use. Default is now.
    */
   timestamp?: number;
+}
+
+declare interface ITotpToken {
+  token: string;
+  expires: number;
+  next: string;
+  previous: string;
 }
 
 declare interface IOtpAuth extends Exclude<ITotpOptions, "timestamp"> {
@@ -33,7 +40,7 @@ declare module "@commonsjs/totp" {
    * Generates a time-based one-time password
    * @param options The TOTP options
    */
-  export function totp(options: ITotpOptions): Promise<string>;
+  export function totp(options: ITotpOptions): Promise<ITotpToken>;
   /**
    * Generates a counter-based one-time password
    * @param key OTP key in binary format

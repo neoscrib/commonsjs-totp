@@ -1,10 +1,10 @@
 import {chromium} from "@playwright/test";
-import net, {type AddressInfo} from "node:net";
+import {createServer as netCreateServer, type AddressInfo} from "node:net";
 import {createServer} from "vite";
 
 const getRandomPort = () => {
   return new Promise<number>((resolve, reject) => {
-    const server = net.createServer();
+    const server = netCreateServer();
     server.listen(0, () => {
       const port = (server.address() as AddressInfo).port;
       server.close(() => resolve(port));
